@@ -62,7 +62,7 @@ Resources:
             FunctionName: !Sub '${AWS::StackName}-Worker-Function'
             Description: !Sub 'Lambda function to serve ${AWS::StackName} Worker'
             CodeUri: ../
-            Handler: 'Bref\Symfony\Messenger\Service\Sqs\SqsConsumer'
+            Handler: 'App\Infrastructure\Bref\DebugSqsHandler'
             Timeout: 30 # in seconds
             MemorySize: 128
             Runtime: provided.al2
