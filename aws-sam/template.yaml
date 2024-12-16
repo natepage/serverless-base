@@ -48,6 +48,13 @@ Resources:
                     APP_DEBUG: !Ref AppDebug
                     BREF_LOOP_MAX: 100
                     SQS_QUEUE_URL: !Ref Queue
+            Policies:
+                - Statement:
+                      - Sid: SqsSendMessage
+                        Effect: Allow
+                        Action:
+                            - 'sqs:sendmessage'
+                        Resource: !GetAtt 'Queue.Arn'
 
 Outputs:
     ApiUrl:
