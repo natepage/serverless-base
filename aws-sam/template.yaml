@@ -35,7 +35,7 @@ Resources:
             CodeUri: ../
             Handler: 'App\Infrastructure\Symfony\HttpKernel\ApplicationKernel'
             Timeout: 30 # in seconds
-            MemorySize: 512
+            MemorySize: 128
             Runtime: provided.al2
             Layers:
                 - !Sub 'arn:aws:lambda:${AWS::Region}:534081306603:layer:php-83:39'
@@ -64,7 +64,7 @@ Resources:
             CodeUri: ../
             Handler: 'Bref\Symfony\Messenger\Service\Sqs\SqsConsumer'
             Timeout: 30 # in seconds
-            MemorySize: 512
+            MemorySize: 128
             Runtime: provided.al2
             Layers:
                 - !Sub 'arn:aws:lambda:${AWS::Region}:534081306603:layer:php-83:39'
