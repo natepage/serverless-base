@@ -25,10 +25,6 @@ Resources:
         Type: AWS::SQS::Queue
         Properties:
             QueueName: !Sub '${AWS::StackName}-dead-letter'
-            RedriveAllowPolicy:
-                redrivePermission: byQueue
-                sourceQueueArns:
-                    - !GetAtt 'Queue.Arn'
 
     # ------ Lambda ------
     Api:
@@ -51,6 +47,7 @@ Resources:
                     APP_ENV: !Ref AppEnv
                     APP_DEBUG: !Ref AppDebug
                     BREF_LOOP_MAX: 100
+                    SQS_QUEUE_URL: !Ref Queue
 
 Outputs:
     ApiUrl:
