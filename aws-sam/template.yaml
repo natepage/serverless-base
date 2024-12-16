@@ -32,6 +32,7 @@ Resources:
                 Variables:
                     APP_ENV: !Ref AppEnv
                     APP_DEBUG: !Ref AppDebug
+                    BREF_LOOP_MAX: 100
 
 Outputs:
     ApiUrl:
