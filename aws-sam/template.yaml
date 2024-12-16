@@ -12,6 +12,20 @@ Parameters:
         Default: 0
 
 Resources:
+    # ------ SQS ------
+    Queue:
+        Type: AWS::SQS::Queue
+        Properties:
+            QueueName: !Sub '${AWS::StackName}'
+            RedrivePolicy:
+                deadLetterTargetArn: !GetAtt 'QueueDeadLetter.Arn'
+                maxReceiveCount: 3
+
+    QueueDeadLetter:
+        Type: AWS::SQS::Queue
+        Properties:
+            QueueName: !Sub '${AWS::StackName}-dead-letter'
+
     # ------ Lambda ------
     Api:
         Type: AWS::Serverless::Function

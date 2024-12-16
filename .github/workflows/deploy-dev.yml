@@ -3,7 +3,7 @@ on:
     push:
         branches:
             - deploy/dev
-            - feature/github-actions-deploy
+            - main
 
 jobs:
     deploy:
@@ -31,9 +31,9 @@ jobs:
                     composer-options: '--no-interaction --no-progress --no-dev --no-suggest --no-scripts'
 
             -   name: Warmup Cache
-                run: 'php bin/console cache:warmup -e staging'
+                run: 'php bin/console cache:warmup -e dev'
                 env:
-                    APP_ENV: 'staging'
+                    APP_ENV: 'dev'
 
             -   name: Deploy
                 run: |
@@ -44,4 +44,4 @@ jobs:
                         --resolve-s3 \
                         --capabilities CAPABILITY_IAM \
                         --region ap-southeast-2 \
-                        --parameter-overrides ParameterKey=AppEnv,ParameterValue=staging ParameterKey=AppDebug,ParameterValue=1
+                        --parameter-overrides ParameterKey=AppEnv,ParameterValue=dev ParameterKey=AppDebug,ParameterValue=1
