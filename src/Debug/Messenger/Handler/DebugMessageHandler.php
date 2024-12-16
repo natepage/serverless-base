@@ -17,5 +17,7 @@ final class DebugMessageHandler
     public function __invoke(DebugMessage $message): void
     {
         $this->logger->debug($message->getMessage());
+
+        throw new \RuntimeException($message->getMessage());
     }
 }

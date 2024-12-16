@@ -6,7 +6,6 @@ namespace App\Infrastructure\Bref;
 use Bref\Context\Context;
 use Bref\Event\Handler;
 use Bref\Symfony\Messenger\Service\Sqs\SqsConsumer;
-use Psr\Log\LoggerInterface;
 
 final class DebugSqsHandler implements Handler
 {
