@@ -4,6 +4,7 @@ on:
         branches:
             - deploy/dev
             - main
+            - feature/simple-api-with-queue-worker
 
 jobs:
     deploy:
