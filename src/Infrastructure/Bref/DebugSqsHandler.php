@@ -12,13 +12,12 @@ final class DebugSqsHandler implements Handler
 {
     public function __construct(
         private readonly SqsConsumer $decorated,
-        private readonly LoggerInterface $logger,
     ) {
     }
 
     public function handle(mixed $event, Context $context)
     {
-        $this->logger->debug('SQS Event', ['event' => $event]);
+        \print_r($event);
 
         return $this->decorated->handle($event, $context);
     }
