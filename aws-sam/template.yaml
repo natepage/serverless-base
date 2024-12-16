@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+    AppEnv:
+        Type: String
+        Description: Application environment name
+        Default: prod
+    AppDebug:
+        Type: Number
+        Description: Application debug on/off
+        Default: 0
+
+Resources:
+    # ------ Lambda ------
+    Api:
+        Type: AWS::Serverless::Function
+        Properties:
+            FunctionName: !Sub '${AWS::StackName}-Api-Function'
+            Description: !Sub 'Lambda function to serve ${AWS::StackName} Api'
+            CodeUri: ../
+            Handler: 'App\Infrastructure\Symfony\HttpKernel\ApplicationKernel'
+            Timeout: 30 # in seconds
+            MemorySize: 512
+            Runtime: provided.al2
+            Layers:
+                - !Sub 'arn:aws:lambda:${AWS::Region}:534081306603:layer:php-83:39'
+            Events:
+                HttpRoot:
+                    Type: HttpApi
+            Environment:
+                Variables:
+                    APP_ENV: !Ref AppEnv
+                    APP_DEBUG: !Ref AppDebug
+
+Outputs:
+    ApiUrl:
+        Description: 'Public URL of Api'
+        Value: !Sub 'https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/'
