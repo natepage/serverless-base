@@ -13,7 +13,6 @@ readonly final class HomeController
 {
     public function __construct(
         private string $envName,
-        private string $someVar,
         private MessageBusInterface $bus
     ) {
     }
@@ -24,7 +23,6 @@ readonly final class HomeController
 
         return new JsonResponse([
             'env' => $this->envName,
-            'someVar' => $this->someVar,
         ]);
     }
 }

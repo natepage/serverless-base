@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -12,8 +11,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->defaults()
         ->autowire()
         ->autoconfigure()
-        ->bind('$envName', param('kernel.environment'))
-        ->bind('$someVar', env('SOME_VAR'));
+        ->bind('$envName', param('kernel.environment'));
 
     $services
         ->load('App\\', __DIR__ . '/../src/')
