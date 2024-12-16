@@ -56,6 +56,29 @@ Resources:
                             - 'sqs:sendmessage'
                         Resource: !GetAtt 'Queue.Arn'
 
+    Worker:
+        Type: AWS::Serverless::Function
+        Properties:
+            FunctionName: !Sub '${AWS::StackName}-Worker-Function'
+            Description: !Sub 'Lambda function to serve ${AWS::StackName} Worker'
+            CodeUri: ../
+            Handler: 'Bref\Symfony\Messenger\Service\Sqs\SqsConsumer'
+            Timeout: 30 # in seconds
+            MemorySize: 512
+            Runtime: provided.al2
+            Layers:
+                - !Sub 'arn:aws:lambda:${AWS::Region}:534081306603:layer:php-83:39'
+            Events:
+                SqsQueue:
+                    Type: SQS
+                    Properties:
+                        Queue: !GetAtt 'Queue.Arn'
+            Environment:
+                Variables:
+                    APP_ENV: !Ref AppEnv
+                    APP_DEBUG: !Ref AppDebug
+                    SQS_QUEUE_URL: !Ref Queue
+
 Outputs:
     ApiUrl:
         Description: 'Public URL of Api'

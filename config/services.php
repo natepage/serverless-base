@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Bref\Symfony\Messenger\Service\Sqs\SqsConsumer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
@@ -24,4 +25,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services
         ->load('App\\Controller\\', __DIR__ . '/../src/Controller/')
         ->tag('controller.service_arguments');
+
+    // Register SQS Consumer for Worker
+    $services
+        ->set(SqsConsumer::class)
+        ->arg('$transportName', 'async')
+        ->public();
 };

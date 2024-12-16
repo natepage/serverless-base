@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "bref/bref": "^2.3",
         "bref/symfony-bridge": "^1.0",
+        "bref/symfony-messenger": "*",
         "symfony/amazon-sqs-messenger": "7.2.*",
         "symfony/console": "7.2.*",
         "symfony/dotenv": "7.2.*",
