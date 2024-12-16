@@ -32,6 +32,8 @@ jobs:
 
             -   name: Warmup Cache
                 run: 'php bin/console cache:warmup -e dev'
+                env:
+                    APP_ENV: 'dev'
 
             -   name: Deploy
                 run: |

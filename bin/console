@@ -4,15 +4,19 @@
 use App\Infrastructure\Symfony\HttpKernel\ApplicationKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
-if (!is_dir(dirname(__DIR__).'/vendor')) {
+if (\is_dir(\dirname(__DIR__) . '/vendor') === false) {
     throw new LogicException('Dependencies are missing. Try running "composer install".');
 }
 
-if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {
+if (\is_file(\dirname(__DIR__) . '/vendor/autoload_runtime.php') === false) {
     throw new LogicException('Symfony Runtime is missing. Try running "composer require symfony/runtime".');
 }
 
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+$_SERVER['APP_RUNTIME_OPTIONS'] = [
+    'dotenv_path' => \sprintf('envs/%s.env', $_SERVER['APP_ENV'] ?? 'local'), // Ensure we use the right env vars
+];
+
+require_once \dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return function (array $context) {
     $kernel = new ApplicationKernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
